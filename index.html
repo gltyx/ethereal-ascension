@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereal Ascension</title>
+    <link rel="stylesheet" href="assets/game.css">
+</head>
+<body>
+<script src="chs.js"></script>
+<script src="core.js"></script>
+    <header>
+        <h1 class="game-title">Ethereal Ascension</h1>
+        <div class="game-controls">
+            <button id="help-button" class="control-button">Grimoire</button>
+            <button id="settings-button" class="control-button">Settings</button>
+        </div>
+    </header>
+
+    <div class="game-container">
+        <div class="sidebar left-sidebar">
+            <div class="panel resources-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Resources</h2>
+                </div>
+                <div class="panel-content">
+                    <div class="resources-grid" id="resources-container">
+                        <!-- Resources will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel bonuses-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Active Bonuses</h2>
+                    <span class="panel-title-icon">▼</span>
+                </div>
+                <div class="panel-content">
+                    <div class="bonuses-list" id="bonuses-container">
+                        <!-- Bonuses will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel stats-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Chronicles</h2>
+                    <span class="panel-title-icon">▼</span>
+                </div>
+                <div class="panel-content">
+                    <div class="stats-list" id="statistics">
+                        <!-- Statistics will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="tabs">
+                <div class="tab active" data-tab="realms">Realms</div>
+                <div class="tab" data-tab="artifacts">Artifacts</div>
+                <div class="tab" data-tab="powers">Powers</div>
+                <div class="tab" data-tab="dungeons">Dungeons</div>
+                <div class="tab" data-tab="ascension">Ascension</div>
+                <div class="tab-indicator"></div>
+            </div>
+
+            <div class="tab-content active" id="realms-tab">
+                <div class="realm-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Etheric Essence</h2>
+                    </div>
+
+                    <button id="click-button" class="realm-main-action">Channel Essence</button>
+
+                    <div class="click-info">
+                        Essence per channel: <span id="energy-per-click">1</span>
+                    </div>
+                </div>
+
+                <div class="realm-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Mystic Realms</h2>
+                    </div>
+
+                    <div class="realms-grid" id="realms-container">
+                        <!-- Realms will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="artifacts-tab">
+                <div class="section-header">
+                    <h2 class="section-title">Mystical Artifacts</h2>
+                </div>
+
+                <div class="artifacts-intro">
+                    <p>Discover and collect powerful artifacts to enhance your journey through the ethereal realms. Each artifact provides unique benefits to your essence production and abilities.</p>
+                    <div class="artifacts-progress">
+                        <div class="progress-label">Collection Progress:</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="artifacts-progress-bar"></div>
+                        </div>
+                        <div class="progress-text"><span id="artifacts-collected">0</span>/<span id="artifacts-total">0</span></div>
+                    </div>
+                </div>
+
+                <div class="artifacts-filter-tabs" id="artifacts-filter-tabs">
+                    <div class="artifact-filter-tab active" data-filter="all">All</div>
+                    <div class="artifact-filter-tab" data-filter="channeling">Channeling</div>
+                    <div class="artifact-filter-tab" data-filter="realm">Realm</div>
+                    <div class="artifact-filter-tab" data-filter="global">Global</div>
+                    <div class="artifact-filter-tab" data-filter="ascension">Ascension</div>
+                    <div class="artifact-filter-tab" data-filter="dungeon">Dungeon</div>
+                </div>
+
+                <div class="artifacts-sections-container">
+                    <div class="artifacts-section">
+                        <div class="section-header-with-icon">
+                            <div class="section-icon">✨</div>
+                            <h3 class="artifacts-section-title">Available Artifacts</h3>
+                        </div>
+                        <p class="section-description">These artifacts have been discovered and are ready to be acquired with essence or power points.</p>
+                        <div class="artifacts-container" id="available-artifacts-container">
+                            <!-- Available artifacts will be populated dynamically -->
+                        </div>
+                        <div class="artifacts-pagination" id="available-artifacts-pagination">
+                            <button class="pagination-button" id="available-prev-page" disabled>Previous</button>
+                            <span class="pagination-info" id="available-pagination-info">Page 1 of 1</span>
+                            <button class="pagination-button" id="available-next-page" disabled>Next</button>
+                        </div>
+                    </div>
+
+                    <div class="artifacts-section">
+                        <div class="section-header-with-icon">
+                            <div class="section-icon">🏆</div>
+                            <h3 class="artifacts-section-title">Acquired Artifacts</h3>
+                        </div>
+                        <p class="section-description">Your collection of powerful artifacts that are enhancing your abilities.</p>
+                        <div class="artifacts-container" id="acquired-artifacts-container">
+                            <!-- Acquired artifacts will be populated dynamically -->
+                        </div>
+                        <div class="artifacts-pagination" id="acquired-artifacts-pagination">
+                            <button class="pagination-button" id="acquired-prev-page" disabled>Previous</button>
+                            <span class="pagination-info" id="acquired-pagination-info">Page 1 of 1</span>
+                            <button class="pagination-button" id="acquired-next-page" disabled>Next</button>
+                        </div>
+                    </div>
+
+                    <div class="artifacts-section">
+                        <div class="section-header-with-icon">
+                            <div class="section-icon">🔒</div>
+                            <h3 class="artifacts-section-title">Locked Artifacts</h3>
+                        </div>
+                        <p class="section-description">Mysterious artifacts waiting to be discovered as you progress. Only a few are shown at a time.</p>
+                        <div class="artifacts-container" id="locked-artifacts-container">
+                            <!-- Locked artifacts will be populated dynamically -->
+                        </div>
+                        <div class="artifacts-pagination" id="locked-artifacts-pagination">
+                            <button class="pagination-button" id="locked-prev-page" disabled>Previous</button>
+                            <span class="pagination-info" id="locked-pagination-info">Page 1 of 1</span>
+                            <button class="pagination-button" id="locked-next-page" disabled>Next</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="tab-content" id="powers-tab">
+                <div class="section-header">
+                    <h2 class="section-title">Arcane Powers</h2>
+                </div>
+
+                <div class="skill-points-display">
+                    Available Power Points: <span id="skill-points">0</span>
+                </div>
+
+                <!-- New vertical layout with details panel on top -->
+                <div class="arcane-powers-container-vertical">
+                    <!-- Top panel: Power details -->
+                    <div class="power-details-panel" id="power-details-panel">
+                        <div class="power-details-content" id="power-details-content">
+                            <div class="power-details-placeholder" id="power-details-placeholder">
+                                <div class="placeholder-icon">✦</div>
+                                <h3>Select a Power</h3>
+                                <p>Click on any power in the tree to view its details</p>
+                            </div>
+
+                            <div class="power-details" id="power-details" style="display: none;">
+                                <div class="power-header">
+                                    <div class="power-icon" id="power-icon"></div>
+                                    <h3 class="power-name" id="power-name">Power Name</h3>
+                                    <div class="power-header-right">
+                                        <div class="power-cost" id="power-cost"></div>
+                                        <button id="power-purchase-button" class="power-purchase-button" disabled>Master Power</button>
+                                    </div>
+                                </div>
+
+                                <div class="power-description" id="power-description">
+                                    Power description will appear here.
+                                </div>
+
+                                <div class="power-stats">
+                                    <div class="power-requirements" id="power-requirements"></div>
+                                </div>
+
+                              <div class="power-effects" id="power-effects" style="display: none;">
+                                    <h4>Effects:</h4>
+                                    <ul id="power-effects-list"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom panel: Skill tree -->
+                    <div class="skill-tree-panel">
+                        <div class="skill-tree-wrapper">
+                            <div class="skill-connections" id="skill-connections">
+                                <!-- Skill connections will be drawn dynamically with JS -->
+                            </div>
+
+                            <div class="skill-grid" id="power-tree-container">
+                                <!-- Powers will be populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="dungeons-tab">
+                <div class="section-header">
+                    <h2 class="section-title">Ethereal Dungeons</h2>
+                </div>
+
+                <div class="dungeon-container">
+                    <!-- Dungeon placeholder (shown when not in dungeon) -->
+                    <div class="dungeon-placeholder" id="dungeon-placeholder">
+                        <div class="placeholder-icon">🗝️</div>
+                        <h3>Ethereal Depths Await</h3>
+                        <p>Enter the dungeon to begin your adventure</p>
+                        <button id="start-dungeon-button" class="dungeon-start-button">Enter Dungeon</button>
+
+                        <!-- Dungeon Skills UI -->
+                        <div class="dungeon-skills-container" id="dungeon-skills-container" style="display: none;">
+                            <h3>Dungeon Skills</h3>
+                            <div class="dungeon-skill-points">Available Points: <span id="dungeon-skill-points-available">0</span></div>
+
+                            <div class="dungeon-skills-grid">
+                                <!-- Strength Skill -->
+                                <div class="dungeon-skill">
+                                    <div class="skill-name">Strength</div>
+                                    <div class="skill-level">Level: <span id="strength-skill-level">0</span></div>
+                                    <div class="skill-description">+2 Attack per level</div>
+                                    <button class="skill-upgrade-button" id="upgrade-strength">Upgrade</button>
+                                </div>
+
+                                <!-- Vitality Skill -->
+                                <div class="dungeon-skill">
+                                    <div class="skill-name">Vitality</div>
+                                    <div class="skill-level">Level: <span id="vitality-skill-level">0</span></div>
+                                    <div class="skill-description">+10 Health per level</div>
+                                    <button class="skill-upgrade-button" id="upgrade-vitality">Upgrade</button>
+                                </div>
+
+                                <!-- Defense Skill -->
+                                <div class="dungeon-skill">
+                                    <div class="skill-name">Defense</div>
+                                    <div class="skill-level">Level: <span id="defense-skill-level">0</span></div>
+                                    <div class="skill-description">+1 Defense per level</div>
+                                    <button class="skill-upgrade-button" id="upgrade-defense">Upgrade</button>
+                                </div>
+
+                                <!-- Luck Skill -->
+                                <div class="dungeon-skill">
+                                    <div class="skill-name">Luck</div>
+                                    <div class="skill-level">Level: <span id="luck-skill-level">0</span></div>
+                                    <div class="skill-description">+1% Critical Hit Chance per level</div>
+                                    <button class="skill-upgrade-button" id="upgrade-luck">Upgrade</button>
+                                </div>
+                            </div>
+
+                            <div class="dungeon-stats">
+                                <h4>Current Stats</h4>
+                                <div class="dungeon-stat">Health: <span id="dungeon-stat-health">100</span></div>
+                                <div class="dungeon-stat">Attack: <span id="dungeon-stat-attack">10</span></div>
+                                <div class="dungeon-stat">Defense: <span id="dungeon-stat-defense">5</span></div>
+                                <div class="dungeon-stat">Critical Chance: <span id="dungeon-stat-crit">0</span>%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main dungeon interface (shown when in dungeon) -->
+                    <div class="dungeon-interface" id="dungeon-interface" style="display: none;">
+                        <!-- Top row: Map area -->
+                        <div class="dungeon-map-area">
+                            <!-- Dungeon map container -->
+                            <div class="dungeon-map-container" id="dungeon-map-container">
+                                <!-- Dungeon map will be generated here -->
+                            </div>
+
+                            <!-- Full-screen combat overlay (shown during encounters) -->
+                            <div class="dungeon-combat-container" id="dungeon-combat-container" style="display: none;">
+                                <!-- Turn indicator -->
+                                <div class="combat-turn-display" id="combat-turn-display">Your Turn</div>
+
+                                <!-- Main combat area with two columns -->
+                                <div class="combat-main-area">
+                                    <!-- Left column: Player -->
+                                    <div class="combat-column player-column">
+                                        <div class="combat-entity-panel player-panel">
+                                            <div class="combat-entity-name">Adventurer</div>
+                                            <div class="combat-health-bar-container">
+                                                <div class="combat-health-bar player-health-bar">
+                                                    <div class="combat-health-fill player-health-fill" id="player-health-fill"></div>
+                                                </div>
+                                                <div class="combat-health-text" id="player-health-text">100/100</div>
+                                            </div>
+                                            <div class="combat-stats" id="player-combat-stats">
+                                                <!-- Player stats will be displayed here -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right column: Enemy -->
+                                    <div class="combat-column enemy-column">
+                                        <div class="combat-entity-panel enemy-panel" id="dungeon-enemy-container">
+                                            <!-- Enemy will be displayed here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom section: Action bar with room details and controls -->
+                        <div class="dungeon-action-bar" id="dungeon-action-bar">
+                            <!-- Room details row -->
+                            <div class="dungeon-room-details" id="dungeon-room-details">
+                                <!-- Room details will be shown here -->
+                            </div>
+
+                            <!-- Two column layout for controls -->
+                            <div class="dungeon-controls-grid">
+                                <!-- Left column: History and Stats -->
+                                <div class="dungeon-left-column">
+                                    <!-- Message history -->
+                                    <div class="dungeon-message-window" id="dungeon-message-window">
+                                        <div class="dungeon-message-header">Adventure Log</div>
+                                        <div class="dungeon-message-container" id="dungeon-message-container">
+                                            <!-- Messages will be displayed here -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Player stats -->
+                                    <div class="dungeon-player-stats" id="dungeon-player-stats">
+                                        <!-- Player stats will be displayed here -->
+                                    </div>
+                                </div>
+
+                                <!-- Right column: Actions and Room Navigation -->
+                                <div class="dungeon-right-column">
+                                    <!-- Action buttons -->
+                                    <div class="dungeon-actions" id="dungeon-actions">
+                                        <div class="dungeon-section-header">Actions</div>
+                                        <div class="dungeon-actions-container" id="dungeon-actions-container">
+                                            <!-- Action buttons will be displayed here -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Room navigation and effects -->
+                                    <div class="dungeon-navigation">
+                                        <div class="dungeon-section-header">Navigation</div>
+                                        <div class="dungeon-navigation-container" id="dungeon-navigation-container">
+                                            <!-- Room navigation buttons will be displayed here -->
+                                        </div>
+
+                                        <!-- Active effects -->
+                                        <div class="dungeon-active-effects" id="dungeon-active-effects">
+                                            <!-- Active effects will be displayed here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            <div class="tab-content" id="ascension-tab">
+                <div class="section-header">
+                    <h2 class="section-title">Soul Ascension</h2>
+                </div>
+
+                <div class="prestige-container">
+                    <h3 class="prestige-title">Transcend the Mortal Realm</h3>
+
+                    <p class="prestige-description">
+                        Sacrifice your worldly possessions to ascend beyond the material plane.
+                        Each ascension grants you power points to unlock extraordinary abilities,
+                        allowing you to progress even faster in your next journey.
+                    </p>
+
+                    <div class="prestige-stats">
+                        <div class="prestige-stat">
+                            <div class="prestige-stat-name">Current Power Points</div>
+                            <div class="prestige-stat-value" id="current-prestige">0</div>
+                        </div>
+
+                        <div class="prestige-stat">
+                            <div class="prestige-stat-name">Points on Ascension</div>
+                            <div class="prestige-stat-value" id="prestige-gain-amount">0</div>
+                        </div>
+
+                        <div class="prestige-stat">
+                            <div class="prestige-stat-name">Essence Multiplier</div>
+                            <div class="prestige-stat-value">×<span id="prestige-multiplier-value">1</span></div>
+                        </div>
+
+                        <div class="prestige-stat">
+                            <div class="prestige-stat-name">Total Ascensions</div>
+                            <div class="prestige-stat-value" id="prestige-count">0</div>
+                        </div>
+                    </div>
+
+                    <div class="ascension-requirements">
+                        <h4 class="ascension-section-title">Ascension Requirements</h4>
+                        <div class="ascension-requirement-info">
+                            <p>You need to accumulate enough total essence to gain at least 1 power point upon ascension.</p>
+                            <p>Current status: <span id="ascension-status">Not ready to ascend</span></p>
+                        </div>
+                    </div>
+
+                    <div class="ascension-formula">
+                        <h4 class="ascension-section-title">Power Point Formula</h4>
+                        <p>Power Points = (Total Essence)^0.15 ÷ 100 × Multipliers</p>
+                        <div class="formula-breakdown">
+                            <div class="formula-component">
+                                <div class="component-name">Base Points:</div>
+                                <div class="component-value" id="base-power-points">0</div>
+                            </div>
+                            <div class="formula-component">
+                                <div class="component-name">Total Multiplier:</div>
+                                <div class="component-value" id="total-power-multiplier">1</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ascension-effects">
+                        <h4 class="ascension-section-title">What Happens When You Ascend</h4>
+                        <div class="ascension-effects-columns">
+                            <div class="ascension-reset">
+                                <h5>Reset</h5>
+                                <ul>
+                                    <li>Essence (current and production)</li>
+                                    <li>All realms</li>
+                                    <li>Regular artifacts</li>
+                                </ul>
+                            </div>
+                            <div class="ascension-keep">
+                                <h5>Keep</h5>
+                                <ul>
+                                    <li>Power points</li>
+                                    <li>Purchased powers</li>
+                                    <li>Ascension artifacts</li>
+                                    <li>Dungeon artifacts</li>
+                                    <li>Dungeon skills and progress</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ascension-recommendation">
+                        <h4 class="ascension-section-title">When to Ascend</h4>
+                        <p>For optimal progress, consider ascending when:</p>
+                        <ul>
+                            <li>You'll gain at least 1 power point</li>
+                            <li>Progress has slowed significantly</li>
+                            <li>You want to unlock more powers</li>
+                        </ul>
+                    </div>
+
+                    <button id="prestige-button" class="prestige-button">Ascend</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar right-sidebar">
+            <div class="panel achievements-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Legendary Feats</h2>
+                    <span class="panel-title-icon">▼</span>
+                </div>
+                <div class="panel-content">
+                    <div class="achievements-filter">
+                        <div class="filter-tabs" id="feats-filter-tabs">
+                            <div class="filter-tab active" data-filter="all">All</div>
+                            <div class="filter-tab" data-filter="essence">Essence</div>
+                            <div class="filter-tab" data-filter="realm">Realms</div>
+                            <div class="filter-tab" data-filter="power">Powers</div>
+                            <div class="filter-tab" data-filter="dungeon">Dungeons</div>
+                            <div class="filter-tab" data-filter="ascension">Ascension</div>
+                        </div>
+                        <div class="search-container">
+                            <input type="text" id="achievement-search" placeholder="Search feats..." class="search-input">
+                        </div>
+                    </div>
+                    <div class="achievements-grid" id="achievements-container">
+                        <!-- Achievements will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notifications-container" id="notifications">
+        <!-- Regular notifications will be added dynamically -->
+    </div>
+
+    <div class="feat-notifications-container" id="feat-notifications">
+        <!-- Feat notifications will be added dynamically -->
+    </div>
+
+    <div class="modal" id="help-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Ancient Grimoire</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+
+            <!-- Game Overview -->
+            <div class="help-section">
+                <div class="help-title">The Path of Ascension</div>
+                <div class="help-content">
+                    <p>Welcome, Seeker of Power, to the mystical world of Ethereal Ascension! In this realm, you'll harness the fundamental energies of existence to grow in power and eventually ascend beyond the mortal plane.</p>
+                    <p>Begin your journey by channeling Etheric Essence - the fundamental energy of all creation. As you gather essence, you'll unlock mystical realms that automatically generate essence for you.</p>
+                    <p>Grow in power, unlock ancient artifacts, master arcane abilities, and ultimately transcend your mortal form through multiple ascensions.</p>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Game Progression</div>
+                        <div class="help-subcontent">
+                            <p>Your journey follows this progression path:</p>
+                            <ol>
+                                <li><strong>Channel Essence</strong> - Begin by clicking to gather essence</li>
+                                <li><strong>Purchase Realms</strong> - Buy realms that generate essence automatically</li>
+                                <li><strong>Acquire Artifacts</strong> - Unlock and purchase artifacts to boost your production</li>
+                                <li><strong>Explore Dungeons</strong> - Test your power in the Ethereal Dungeons</li>
+                                <li><strong>Ascend</strong> - Reset your progress to gain Power Points</li>
+                                <li><strong>Master Powers</strong> - Use Power Points to unlock powerful abilities</li>
+                                <li><strong>Repeat</strong> - Each ascension makes you stronger for the next cycle</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Realms Section -->
+            <div class="help-section">
+                <div class="help-title">Mystic Realms</div>
+                <div class="help-content">
+                    <p>Realms are planes of existence that continuously generate Etheric Essence for you. Each realm has:</p>
+                    <ul>
+                        <li>A base essence flow rate that determines how much essence it generates each second</li>
+                        <li>A cost that increases with each realm you create</li>
+                    </ul>
+                    <p>Start with the most basic realms and progress to more powerful ones as you grow in power. Some realms will only reveal themselves once you've gathered enough essence.</p>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Realm Types</div>
+                        <div class="help-subcontent">
+                            <p>There are multiple realm types, each with unique production rates and costs:</p>
+                            <ul>
+                                <li><strong>Crystal Garden</strong> - The first realm, produces essence at a modest rate</li>
+                                <li><strong>Whispering Grove</strong> - Unlocks after gathering sufficient essence</li>
+                                <li><strong>Ethereal Forge</strong> - A more powerful realm with higher production</li>
+                                <li><strong>Celestial Nexus</strong> - Advanced realm with significant essence generation</li>
+                                <li><strong>And many more...</strong> - Continue playing to discover all realm types</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Realm Synergies</div>
+                        <div class="help-subcontent">
+                            <p>Certain powers create synergies between realms:</p>
+                            <ul>
+                                <li><strong>Realm Synergy</strong> - Each realm type boosts overall production</li>
+                                <li><strong>Quantum Synergy</strong> - Each active realm boosts all other realms</li>
+                                <li><strong>Realm Harmony</strong> - Each realm type reduces costs</li>
+                            </ul>
+                            <p>Diversifying your realm portfolio can significantly increase your production efficiency.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artifacts Section -->
+            <div class="help-section">
+                <div class="help-title">Mystical Artifacts</div>
+                <div class="help-content">
+                    <p>Artifacts are powerful relics that enhance your abilities in various ways. Unlike powers, artifacts are reset when you ascend (except for ascension artifacts).</p>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Artifact Types</div>
+                        <div class="help-subcontent">
+                            <ul>
+                                <li><strong>Channeling Artifacts</strong> - Increase essence gained from direct channeling</li>
+                                <li><strong>Realm Artifacts</strong> - Boost production of specific realms</li>
+                                <li><strong>Global Artifacts</strong> - Improve overall essence generation</li>
+                                <li><strong>Ascension Artifacts</strong> - Enhance power point gain and persist through ascensions</li>
+                                <li><strong>Dungeon Artifacts</strong> - Rare artifacts found only in dungeons that persist through ascensions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Acquiring Artifacts</div>
+                        <div class="help-subcontent">
+                            <p>Artifacts can be unlocked through various means:</p>
+                            <ul>
+                                <li>Reaching specific essence thresholds</li>
+                                <li>Owning a certain number of realms</li>
+                                <li>Completing dungeons and finding treasure rooms</li>
+                                <li>Ascending multiple times</li>
+                            </ul>
+                            <p>Once unlocked, artifacts must be purchased with essence.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Artifact Effects</div>
+                        <div class="help-subcontent">
+                            <p>Artifact effects stack multiplicatively with other bonuses:</p>
+                            <ul>
+                                <li>A 2x and 3x channeling artifact will result in a 6x multiplier</li>
+                                <li>Realm-specific artifacts only affect their target realm</li>
+                                <li>Global artifacts affect all essence production</li>
+                                <li>Ascension artifacts persist through ascensions and affect power point gain</li>
+                                <li>Dungeon artifacts persist through ascensions and provide various powerful effects</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Legendary Dungeon Artifacts</div>
+                        <div class="help-subcontent">
+                            <p>These rare artifacts can only be found in dungeon artifact rooms and have a small chance of discovery based on your luck:</p>
+                            <ul>
+                                <li><strong>Philosopher's Stone</strong> - Enhances essence transmutation and dungeon loot chances</li>
+                                <li><strong>Celestial Compass</strong> - Increases essence gain from all realms</li>
+                                <li><strong>Chronos Fragment</strong> - Speeds up essence generation</li>
+                                <li><strong>Void Chalice</strong> - Increases your maximum health in dungeons</li>
+                                <li><strong>Ethereal Blade</strong> - Increases your attack power in dungeons</li>
+                                <li><strong>Arcane Shield</strong> - Increases your defense in dungeons</li>
+                                <li><strong>Fortune's Dice</strong> - Increases critical hit chance and treasure find rate</li>
+                                <li><strong>Essence Prism</strong> - Increases essence gain from channeling</li>
+                                <li><strong>Ascendant's Hourglass</strong> - Increases power point gain</li>
+                                <li><strong>Realm Keystone</strong> - Reduces realm costs</li>
+                                <li><strong>Soul Lantern</strong> - Increases skill point gain in dungeons</li>
+                                <li><strong>Crown of Dominion</strong> - Increases all dungeon stats</li>
+                            </ul>
+                            <p>Unlike regular artifacts, these legendary items persist through ascension, providing permanent benefits to your character.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Powers Section -->
+            <div class="help-section">
+                <div class="help-title">Arcane Powers</div>
+                <div class="help-content">
+                    <p>The skill tree represents your mastery of arcane powers. You earn power points through ascension, and these powers persist through ascensions.</p>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Power Categories</div>
+                        <div class="help-subcontent">
+                            <ul>
+                                <li><strong>Production Powers</strong> - Enhance essence generation from realms and channeling</li>
+                                <li><strong>Economy Powers</strong> - Reduce costs and improve efficiency</li>
+                                <li><strong>Special Powers</strong> - Unique effects that transform gameplay mechanics</li>
+                                <li><strong>Synergy Powers</strong> - Create interactions between different game systems</li>
+                                <li><strong>Dungeon Powers</strong> - Improve your performance in the Ethereal Dungeons</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Notable Powers</div>
+                        <div class="help-subcontent">
+                            <ul>
+                                <li><strong>Essence Acceleration</strong> - 1% more essence for each realm owned</li>
+                                <li><strong>Midas Touch</strong> - 2% chance to get 50x essence from channeling</li>
+                                <li><strong>Realm Harmony</strong> - Each realm type reduces cost by 1%</li>
+                                <li><strong>Time Dilation</strong> - 25% more game speed</li>
+                                <li><strong>Essence Overflow</strong> - 10% more essence for each realm owned</li>
+                                <li><strong>Cosmic Balance</strong> - 10% more power points and essence</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Power Tree Navigation</div>
+                        <div class="help-subcontent">
+                            <p>To use the power tree effectively:</p>
+                            <ol>
+                                <li>Click on a power to view its details</li>
+                                <li>If you have enough power points and meet the requirements, the Master Power button will be enabled</li>
+                                <li>Click Master Power to purchase the power</li>
+                                <li>Some powers require other powers to be mastered first</li>
+                                <li>Plan your path through the tree strategically</li>
+                            </ol>
+                            <p>Hover over or tap a power to see its details in the information panel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ascension Section -->
+            <div class="help-section">
+                <div class="help-title">Soul Ascension</div>
+                <div class="help-content">
+                    <p>When you've accumulated enough power, you can choose to ascend beyond your current form. This will reset your progress but grant you power points based on your achievements.</p>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Ascension Mechanics</div>
+                        <div class="help-subcontent">
+                            <p>When you ascend:</p>
+                            <ul>
+                                <li>Your essence is reset to zero</li>
+                                <li>All realms are reset to zero</li>
+                                <li>All non-ascension artifacts are reset</li>
+                                <li>You gain power points based on your total essence</li>
+                                <li>Your powers and ascension artifacts are preserved</li>
+                                <li>Your dungeon skills and progress are preserved</li>
+                            </ul>
+                            <p>The formula for power points is based on your total essence gathered: (Total Essence)^0.15 ÷ 100</p>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Ascension Strategy</div>
+                        <div class="help-subcontent">
+                            <p>To maximize your ascension benefits:</p>
+                            <ul>
+                                <li>Ascend when power point gain slows down significantly</li>
+                                <li>Focus on powers that increase power point gain</li>
+                                <li>Acquire ascension artifacts to boost power point gain</li>
+                                <li>Each ascension makes the next run faster and more efficient</li>
+                            </ul>
+                            <p>The ascension multiplier (1 + log10(total power points)) provides a permanent boost to all essence production.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dungeons Section -->
+            <div class="help-section">
+                <div class="help-title">Ethereal Dungeons</div>
+                <div class="help-content">
+                    <p>Venture into the mysterious Ethereal Dungeons to test your power and gain valuable rewards.</p>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Dungeon Requirements</div>
+                        <div class="help-subcontent">
+                            <p>To enter the Ethereal Dungeons, you must meet one of these requirements:</p>
+                            <ul>
+                                <li>Earn at least 5,000 total essence</li>
+                            </ul>
+                            <p>These requirements ensure you have sufficient power to face the challenges within.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Dungeon Structure</div>
+                        <div class="help-subcontent">
+                            <p>Each dungeon is randomly generated with:</p>
+                            <ul>
+                                <li>An entrance room where you begin</li>
+                                <li>A boss room that contains the final challenge</li>
+                                <li>Various room types connected by passages</li>
+                                <li>A guaranteed path from entrance to boss</li>
+                            </ul>
+                            <p>Dungeons are displayed as a map with rooms you can navigate between.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Room Types</div>
+                        <div class="help-subcontent">
+                            <ul>
+                                <li><strong>Enemy Rooms (40%)</strong> - Contain enemies you must defeat in combat</li>
+                                <li><strong>Treasure Rooms (20%)</strong> - Contain essence rewards</li>
+                                <li><strong>Event Rooms (10%)</strong> - Trigger random events that may help or hinder</li>
+                                <li><strong>Empty Rooms (10%)</strong> - Safe passage with no encounters</li>
+                                <li><strong>Luck Rooms (5%)</strong> - Improve your chances of finding better rewards</li>
+                                <li><strong>Trap Rooms (5%)</strong> - Contain hazards that may damage you</li>
+                                <li><strong>Healing Rooms (5%)</strong> - Restore your health</li>
+                                <li><strong>Artifact Rooms (5%)</strong> - Contain special dungeon artifacts with a chance to find legendary artifacts that persist through ascension</li>
+                                <li><strong>Boss Room</strong> - Contains a powerful enemy with special rewards</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Combat System</div>
+                        <div class="help-subcontent">
+                            <p>Combat in dungeons is turn-based:</p>
+                            <ol>
+                                <li><strong>Your Turn</strong> - Choose from these actions:</li>
+                                <ul>
+                                    <li><strong>Attack</strong> - Deal damage based on your attack stat</li>
+                                    <li><strong>Skill</strong> - Use essence power to deal damage (ignores 50% of enemy defense)</li>
+                                    <li><strong>Flee</strong> - 40% chance to escape combat</li>
+                                </ul>
+                                <li><strong>Enemy Turn</strong> - The enemy attacks you automatically</li>
+                                <li><strong>Combat Resolution</strong> - Combat continues until one side is defeated</li>
+                            </ol>
+                            <p>If you defeat the enemy, you gain essence and possibly skill points. If you're defeated, you're forced to retreat from the dungeon.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Dungeon Stats</div>
+                        <div class="help-subcontent">
+                            <p>Your dungeon performance is determined by these stats:</p>
+                            <ul>
+                                <li><strong>Health</strong> - How much damage you can take before being defeated</li>
+                                <li><strong>Attack</strong> - How much damage you deal with basic attacks</li>
+                                <li><strong>Defense</strong> - Reduces incoming damage (each point reduces damage by 2%, up to 75%)</li>
+                                <li><strong>Critical Chance</strong> - Chance to deal double damage (based on Luck skill)</li>
+                            </ul>
+                            <p>These stats are calculated based on your essence production, ascension count, and dungeon skills.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Dungeon Skills</div>
+                        <div class="help-subcontent">
+                            <p>As you defeat enemies, you earn skill points to improve your dungeon abilities:</p>
+                            <ul>
+                                <li><strong>Strength</strong> - Each level adds +2 Attack</li>
+                                <li><strong>Vitality</strong> - Each level adds +10 Health</li>
+                                <li><strong>Defense</strong> - Each level adds +1 Defense</li>
+                                <li><strong>Luck</strong> - Each level adds +1% Critical Hit Chance and improves rewards</li>
+                            </ul>
+                            <p>You earn 1 skill point for every 4 regular enemies defeated or 1 skill point for each boss defeated. Dungeon skills persist through ascensions.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Dungeon Rewards</div>
+                        <div class="help-subcontent">
+                            <p>Completing dungeons provides several benefits:</p>
+                            <ul>
+                                <li><strong>Essence</strong> - Defeating enemies and completing dungeons awards essence</li>
+                                <li><strong>Skill Points</strong> - Earned by defeating enemies and bosses</li>
+                                <li><strong>Temporary Artifacts</strong> - Special artifacts found in artifact rooms that provide permanent stat boosts</li>
+                                <li><strong>Legendary Dungeon Artifacts</strong> - Rare artifacts with a small chance to be found in artifact rooms that persist through ascension</li>
+                                <li><strong>Experience</strong> - Fills your experience bar, granting skill points when full</li>
+                            </ul>
+                            <p>Defeating the boss automatically completes the dungeon and awards all accumulated rewards.</p>
+                            <p>Legendary Dungeon Artifacts have a base 2% chance to be found in artifact rooms, increased by your luck skill (+0.5% per level).</p>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Dungeon Powers</div>
+                        <div class="help-subcontent">
+                            <p>Several powers in the skill tree enhance your dungeon abilities:</p>
+                            <ul>
+                                <li><strong>Dungeon Health</strong> - Increases your maximum health</li>
+                                <li><strong>Dungeon Attack</strong> - Increases your attack power</li>
+                                <li><strong>Dungeon Defense</strong> - Increases your defense</li>
+                                <li><strong>Dungeon Loot Chance</strong> - Improves treasure room rewards</li>
+                                <li><strong>Dungeon Essence Reward</strong> - Increases essence gained from dungeons</li>
+                                <li><strong>Dungeon Skill Point Bonus</strong> - Increases skill points earned</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Mechanics Section -->
+            <div class="help-section">
+                <div class="help-title">Game Mechanics</div>
+                <div class="help-content">
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Cosmic Numbers</div>
+                        <div class="help-subcontent">
+                            <p>As you progress, numbers will grow to cosmic proportions. The game displays these vast quantities in readable formats:</p>
+                            <ul>
+                                <li><strong>Arcane Notation</strong> - Standard format with commas (1,000,000)</li>
+                                <li><strong>Ethereal Notation</strong> - Scientific notation (1.00e6)</li>
+                                <li><strong>Mystical Notation</strong> - Engineering notation with suffixes (1.00M)</li>
+                            </ul>
+                            <p>You can select your preferred notation style in the settings.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Saving & Loading</div>
+                        <div class="help-subcontent">
+                            <p>Your progress is automatically preserved:</p>
+                            <ul>
+                                <li>Every 30 seconds (configurable in settings)</li>
+                                <li>When you close the game</li>
+                                <li>When you ascend</li>
+                            </ul>
+                            <p>You can manually export your save data to transfer between devices or create backups.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Performance Settings</div>
+                        <div class="help-subcontent">
+                            <p>If the game runs slowly, you can adjust these settings:</p>
+                            <ul>
+                                <li><strong>Visual Effects</strong> - Reduce animations and visual effects</li>
+                                <li><strong>Background Particles</strong> - Decrease or disable floating particles</li>
+                                <li><strong>UI Update Rate</strong> - Reduce how often the interface updates</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Game Speed</div>
+                        <div class="help-subcontent">
+                            <p>You can adjust the game speed in settings, and certain powers like Time Dilation can increase it further.</p>
+                            <p>Higher game speed means faster essence production and faster gameplay overall.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interface Guide Section -->
+            <div class="help-section">
+                <div class="help-title">Interface Guide</div>
+                <div class="help-content">
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Main Tabs</div>
+                        <div class="help-subcontent">
+                            <ul>
+                                <li><strong>Realms</strong> - Channel essence and purchase realms</li>
+                                <li><strong>Artifacts</strong> - View and purchase available artifacts</li>
+                                <li><strong>Powers</strong> - Spend power points on permanent abilities</li>
+                                <li><strong>Dungeons</strong> - Enter and explore the Ethereal Dungeons</li>
+                                <li><strong>Ascension</strong> - Reset your progress to gain power points</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Sidebars</div>
+                        <div class="help-subcontent">
+                            <p><strong>Left Sidebar:</strong></p>
+                            <ul>
+                                <li><strong>Resources</strong> - Shows your current essence and power points</li>
+                                <li><strong>Active Bonuses</strong> - Displays all active effect multipliers</li>
+                                <li><strong>Chronicles</strong> - Shows game statistics and achievements</li>
+                            </ul>
+                            <p><strong>Right Sidebar:</strong></p>
+                            <ul>
+                                <li><strong>Legendary Feats</strong> - Displays achievements and milestones</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Notifications</div>
+                        <div class="help-subcontent">
+                            <p>The game displays notifications for important events:</p>
+                            <ul>
+                                <li>Unlocking new realms, artifacts, or powers</li>
+                                <li>Completing achievements</li>
+                                <li>Ascension results</li>
+                                <li>Dungeon rewards and events</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Credits & Support Section -->
+            <div class="help-section">
+                <div class="help-title">Credits & Support</div>
+                <div class="help-content">
+                    <p>Ethereal Ascension was created by Cakey. If you're enjoying the game and would like to support its development and development of future games, consider buying the developer a Redbull!</p>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Support the Developer</div>
+                        <div class="help-subcontent">
+                            <p>Donations are never required and you're under no obligation. Any donations go directly to my Redbull addiction to keep development moving.</p>
+                            <ul>
+                                <li><strong>PayPal:</strong> <a href="https://paypal.me/smileybb" target="_blank" class="support-link">https://paypal.me/smileybb</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-subsection">
+                        <div class="help-subtitle">Other Projects</div>
+                        <div class="help-subcontent">
+                            <p>Check out Cakey's other games:</p>
+                            <ul>
+                                <li><a href="https://immoralattack.com" target="_blank" class="support-link">Immoral Attack</a> - A 20-year-old game still going strong!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Arcane Configuration</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+
+            <div class="settings-group">
+                <h3 class="settings-title">Numerical Representation</h3>
+                <div class="setting-item">
+                    <label class="setting-label">Number Format</label>
+                    <select id="number-format" class="setting-control">
+                        <option value="standard">Arcane Notation (1,000,000)</option>
+                        <option value="scientific">Ethereal Notation (1.00e6)</option>
+                        <option value="engineering">Mystical Notation (1.00M)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h3 class="settings-title">Time Magic</h3>
+                <div class="setting-item">
+                    <label class="setting-label">Archives Frequency</label>
+                    <select id="save-frequency" class="setting-control">
+                        <option value="15">Every 15 seconds</option>
+                        <option value="30" selected>Every 30 seconds</option>
+                        <option value="60">Every minute</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Time Flow</label>
+                    <input type="range" id="game-speed" class="setting-range" min="0.5" max="2" step="0.1" value="1">
+                    <span id="game-speed-value">1x</span>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h3 class="settings-title">Performance</h3>
+                <div class="setting-item">
+                    <label class="setting-label">Visual Effects</label>
+                    <select id="visual-effects" class="setting-control">
+                        <option value="high">High (All animations)</option>
+                        <option value="medium" selected>Medium (Reduced animations)</option>
+                        <option value="low">Low (Minimal animations)</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Background Particles</label>
+                    <select id="particle-count" class="setting-control">
+                        <option value="0">None</option>
+                        <option value="4">Few</option>
+                        <option value="8" selected>Medium</option>
+                        <option value="15">Many</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">UI Update Rate</label>
+                    <select id="ui-update-rate" class="setting-control">
+                        <option value="50">High (50ms)</option>
+                        <option value="100" selected>Medium (100ms)</option>
+                        <option value="250">Low (250ms)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h3 class="settings-title">Knowledge Transfer</h3>
+                <div class="settings-actions">
+                    <button id="export-save" class="settings-button">Export Journey</button>
+                    <button id="import-save" class="settings-button">Import Journey</button>
+                </div>
+                <textarea id="import-export" class="export-import-area" placeholder="Paste your saved journey code here..."></textarea>
+            </div>
+
+            <div class="settings-group">
+                <h3 class="settings-title">Cosmic Reset</h3>
+                <div class="settings-actions">
+                    <button id="reset-game" class="settings-button danger">Unravel Existence</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-particles" id="particles-container">
+        <!-- Particles will be added dynamically with JS -->
+    </div>
+
+    <script src="assets/game.js"></script>
+<!--客服 开始-->
+<script src="//g8hh.github.io/static/js/jquery.min.js"></script>
+<link rel="stylesheet" href="//g8hh.github.io/static/css/kf.css" type="text/css" media="screen" charset="utf-8">
+<script src="//g8hh.github.io/static/js/kf.js"></script>
+<!-- 客服 结束 -->
+<!--站长统计-->
+    <div style="display: none">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6581389daf4dd6fe7dbb4d20fdcb52a6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    </div>    
+</body>
+</html>
